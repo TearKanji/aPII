@@ -1,11 +1,18 @@
-import 'package:coinbase/pages/homepage.dart';
-import 'package:coinbase/utils/balance_controller.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:sizer/sizer.dart';
+import 'dart:io' show Platform;
+
+void performPlatformSpecificTask() {
+  // Import platform-specific files based on the platform
+  if (Platform.isWindows) {
+    import 'platform_win32.dart';
+  } else {
+    import 'platform_default.dart';
+  }
+}
 
 void main() {
+  // Call the platform-specific function
+  performPlatformSpecificTask();
+  
   runApp(const MyApp());
   Get.put(BalanceController());
 }
@@ -13,7 +20,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return Sizer(
